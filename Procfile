@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* TelcoproApplication
+web: java -jar target/telcopro-1.0.jar
