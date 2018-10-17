@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +27,15 @@ public class AppMenu implements Serializable
     private Long id;
 	
     private String name;
-    private String iconName;
+    private String icon;
     @ManyToMany
+    @JsonIgnore
     private List<AppRole> roles = new ArrayList<>();
+	public AppMenu(String name, String icon) {
+		super();
+		this.name = name;
+		this.icon = icon;
+	}
+    
+    
 }

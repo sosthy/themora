@@ -9,6 +9,7 @@ import com.starstel.telcopro.stocks.entities.Mouvment;
 public interface EmployeeService 
 {
 	List<Employee> listEmployee();
+	Employee employee(Long id);
 	Employee createEmployee(Employee employee);
 	Employee editEmployee(Employee employee);
 	Boolean deleteEmployee(Long id);

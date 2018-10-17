@@ -41,7 +41,7 @@ public class Employee extends Person implements Serializable
     @JsonIgnore
     @OneToMany(mappedBy="user")
     private Set<Mouvment> mouvments;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "USER_ID")
     private AppUser appUser;
     
@@ -62,5 +62,13 @@ public class Employee extends Person implements Serializable
     	
     	this.appUser = appUser;
     }
-   
+
+
+	public Employee(Long id, String name, String surname, String portable, String website, String sex, String cni,
+			String phone, String photo, Date birthday, Date hiring_date, Integer anciennete) {
+		super(id, name, surname, portable, website, sex, cni, phone, photo, birthday);
+		this.hiring_date = hiring_date;
+		this.anciennete = anciennete;
+	}
+    
 }

@@ -31,6 +31,6 @@ public class Product implements Serializable
 	@OneToMany(mappedBy="product")
 	private Set<MouvmentLine> mouvmentLines;
 	@JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToOne( mappedBy = "product")
 	private Stock stock;
 }

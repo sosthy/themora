@@ -48,5 +48,14 @@ public class AppUser implements Serializable
     
     @ManyToMany(fetch = FetchType.EAGER)
     private List<AppRole> roles = new ArrayList<>();
+
+	public AppUser(String username, String password, String email, Boolean lockStatus) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.lockStatus = lockStatus;
+	}
+    
     
 }

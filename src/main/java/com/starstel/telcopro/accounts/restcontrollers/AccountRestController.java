@@ -1,29 +1,33 @@
 package com.starstel.telcopro.accounts.restcontrollers;
 
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.starstel.telcopro.accounts.entities.AppMenu;
 import com.starstel.telcopro.accounts.entities.AppRole;
+import com.starstel.telcopro.accounts.entities.AppUser;
 import com.starstel.telcopro.accounts.services.AccountService;
+import com.starstel.telcopro.rh.services.EmployeeService;
 import com.starstel.telcopro.rh.entities.Employee;
 
+
+@CrossOrigin("*")
 @RestController
 public class AccountRestController 
 {
 	@Autowired
 	private AccountService accountService;
-	
-	
-	@RequestMapping(value = "/employee", method = RequestMethod.GET)
-	public List<Employee> listEmployee() 
-	{
-		return accountService.listEmployee();
-	}
+	@Autowired
+	private EmployeeService  employeeService;
+
 	
 	@RequestMapping(value = "/users-count", method = RequestMethod.GET)
 	public Long listUsersCount() 
@@ -31,30 +35,6 @@ public class AccountRestController
 		return accountService.usersCount();
 	}
 	
-	@RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
-	public Employee getEmployee(@PathVariable Long id)
-	{
-		return accountService.getEmployee(id);
-	}
-	
-	@RequestMapping(value = "/employee", method = RequestMethod.POST)
-	public Employee createEmployee(@RequestBody Employee employee)
-	{
-		return accountService.createEmployee(employee);
-	}
-	
-	@RequestMapping(value="/employee/{id}", method=RequestMethod.PUT)
-	public Employee editEmployee(@PathVariable Long id, @RequestBody Employee employee)
-	{
-		employee.setId(id);
-		return accountService.editEmployee(employee);
-	}
-	
-	@RequestMapping(value="/employee/{id}", method=RequestMethod.DELETE)
-	public boolean deleteEmployee(@PathVariable Long id)
-	{
-		return accountService.deleteEmployee(id);
-	}
 	
 	@RequestMapping(value = "/roles", method = RequestMethod.GET)
 	public List<AppRole> listRoles() 
@@ -80,10 +60,33 @@ public class AccountRestController
 		return accountService.createRole(role);
 	}
 	
-	@RequestMapping(value="/roles/{id}", method=RequestMethod.PUT)
-	public AppRole editRole(@PathVariable Long id, @RequestBody AppRole role)
+	@RequestMapping(value = "/menus", method = RequestMethod.GET)
+	public List<AppMenu> getAppMenus()
 	{
-		role.setId(id);
+		return accountService.getAppMenus();
+	}
+	
+	@RequestMapping(value = "/menu/{id}", method = RequestMethod.GET)
+	public AppMenu getMenu(@PathVariable Long id)
+	{
+		return accountService.getAppMenu(id);
+	}
+	
+	@RequestMapping(value = "/menus", method = RequestMethod.POST)
+	public AppMenu createRole(@RequestBody AppMenu appMenu)
+	{
+		return accountService.createAppMenu(appMenu);
+	}
+	
+	@RequestMapping(value = "/create-user", method = RequestMethod.POST)
+	public AppUser createRole(@RequestBody Employee employee)
+	{
+		return employeeService.createEmployee(employee).getAppUser();
+	}
+	
+	@RequestMapping(value="/roles/{id}", method=RequestMethod.PUT)
+	public AppRole editRole(@RequestBody AppRole role)
+	{
 		return accountService.editRole(role);
 	}
 	

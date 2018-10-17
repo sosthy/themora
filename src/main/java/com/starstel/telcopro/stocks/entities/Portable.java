@@ -3,6 +3,7 @@ package com.starstel.telcopro.stocks.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -37,16 +38,16 @@ public class Portable extends Product
 	@OneToMany(mappedBy="portable")
 	@JsonIgnore
 	private Set<PortableItem> portableItem = new HashSet<>();
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.ALL)
 	private Memoire memoire;
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.ALL)
 	private Camera camera;
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.ALL)
 	private Cpu cpu;
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.ALL)
 	private SystemOS os;
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.ALL)
 	private PortableCategory portableCategory;
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.ALL)
 	private PortableColor portableColor;
 }

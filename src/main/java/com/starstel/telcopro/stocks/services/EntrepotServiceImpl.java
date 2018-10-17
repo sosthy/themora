@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Entrepot;
 import com.starstel.telcopro.stocks.entities.Mouvment;
+import com.starstel.telcopro.stocks.entities.Product;
 import com.starstel.telcopro.stocks.entities.Stock;
 import com.starstel.telcopro.stocks.repositories.EmplacementRepository;
 import com.starstel.telcopro.stocks.repositories.EntrepotRepository;
@@ -137,6 +138,24 @@ public class EntrepotServiceImpl implements EntrepotService
 	public Long getProductItemCountOfEmplacement(Long id)
 	{
 		return entrepotRepository.getPortableItemCountOfEmplacement(id);
+	}
+
+	@Override
+	public Boolean isSpaced(Entrepot entrepot) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean isAddPossible(Entrepot entrepot, Product product) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean isAddPossible(Entrepot entrepot, Set<Product> product) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

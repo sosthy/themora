@@ -1,18 +1,15 @@
 package com.starstel.telcopro.accounts.services;
 
 import java.util.List;
+import java.util.Set;
 
+import com.starstel.telcopro.accounts.entities.AppMenu;
 import com.starstel.telcopro.accounts.entities.AppRole;
 import com.starstel.telcopro.accounts.entities.AppUser;
 import com.starstel.telcopro.rh.entities.Employee;
 
 public interface AccountService 
 {
-	public List<Employee> listEmployee();
-	public Employee getEmployee(Long id);
-	public Employee createEmployee(Employee employee);
-	public Employee editEmployee(Employee employee);
-	public boolean deleteEmployee(Long id);
 	public boolean lockEmployee(Long id);
 	public boolean unlockEmployee(Long id);
 	
@@ -25,5 +22,17 @@ public interface AccountService
 	public AppUser findUserByUsername(String username);
 	public Long usersCount();
 	public Long rolesCount();
+	public AppUser saveUser(AppUser user) ;
+	
+	public List<AppUser> listAppUsers();
+	public AppUser getAppUser(Long id);
+	public AppUser createAppUser(AppUser appUser);
+	public AppUser editAppUser(AppUser appUser);
+	public boolean deleteAppUser(Long id);
+	
+	public AppMenu createAppMenu(AppMenu appMenu);
+	public boolean deleteAppMenu(Long id);
+	public List<AppMenu> getAppMenus();
+	public AppMenu getAppMenu(Long id);
 	
 }

@@ -1,5 +1,7 @@
 package com.starstel.telcopro.stocks.services;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Service;
 import com.starstel.telcopro.rh.entities.Employee;
 import com.starstel.telcopro.rh.repositories.EmployeeRepository;
 import com.starstel.telcopro.stocks.entities.Mouvment;
+import com.starstel.telcopro.stocks.entities.MouvmentLine;
 import com.starstel.telcopro.stocks.entities.MouvmentType;
+import com.starstel.telcopro.stocks.entities.Product;
 import com.starstel.telcopro.stocks.repositories.MouvmentLineRepository;
 import com.starstel.telcopro.stocks.repositories.MouvmentRepository;
 import com.starstel.telcopro.stocks.repositories.MouvmentTypeRepository;
@@ -87,4 +91,39 @@ public class MouvmentServiceImpl implements MouvmentService
 		return true;
 	}
 
+	@Override
+	public Set<Product> getProducts(Mouvment mouvment) {
+		
+		Set<Product> products = new HashSet<>();
+		for(MouvmentLine ml: mouvment.getMouvmentLines())
+			products.add(ml.getProduct());
+		
+		return products;
+	}
+
+	@Override
+	public List<MouvmentLine> listMouvmentLine() {
+		return mouvmentLineRepository.findAll();
+	}
+
+	@Override
+	public MouvmentLine saveMouvmentLine(MouvmentLine mouvmentLine) {
+		/*
+		mouvmentLine.getMouvment().setQuantity(mouvmentLine.getMouvment().getQuantity() + mouvmentLine.getQuantity());
+		mouvmentLine.getMouvment().setPriceTotal(mouvmentLine.getMouvment().getPriceTotal() + mouvmentLine.getPriceTotal());
+		mouvmentRepository.save(mouvmentLine.getMouvment());*/
+		
+		return mouvmentLineRepository.save(mouvmentLine);
+	}
+
+	@Override
+	public Boolean deleteMouvmentLine(Long id) {
+		mouvmentLineRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public Set<MouvmentLine> getAllMouvmentLineOfMouvmentType(Long id) {
+		return new HashSet<>(mouvmentLineRepository.getAllMouvmentLineOfMouvmentType(id));
+	}
 }

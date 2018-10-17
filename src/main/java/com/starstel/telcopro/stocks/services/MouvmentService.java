@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Set;
 
 import com.starstel.telcopro.stocks.entities.Mouvment;
+import com.starstel.telcopro.stocks.entities.MouvmentLine;
 import com.starstel.telcopro.stocks.entities.MouvmentType;
+import com.starstel.telcopro.stocks.entities.Product;
+import com.starstel.telcopro.stocks.entities.Recipient;
 
 public interface MouvmentService 
 {
@@ -19,4 +22,11 @@ public interface MouvmentService
 	List<Mouvment> listMouvment();
 	Mouvment saveMouvment(Mouvment mouvment);
 	Boolean deleteMouvment(Long id);
+	Set<Product> getProducts(Mouvment mouvment);
+
+	// MouvmentLine
+	List<MouvmentLine> listMouvmentLine();
+	MouvmentLine saveMouvmentLine(MouvmentLine mouvmentLine);
+	Boolean deleteMouvmentLine(Long id);
+	Set<MouvmentLine> getAllMouvmentLineOfMouvmentType(Long id);
 }

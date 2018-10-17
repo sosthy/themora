@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +33,7 @@ public class AppRole implements Serializable
     private String roleName;
     private String description;
     @ManyToMany(mappedBy="roles")
+    @JsonIgnore
     private List<AppMenu> menus = new ArrayList<>();
 
 }

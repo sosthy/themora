@@ -1,20 +1,25 @@
 package com.starstel.telcopro.accounts.services;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.starstel.telcopro.accounts.entities.AppMenu;
 import com.starstel.telcopro.accounts.entities.AppRole;
 import com.starstel.telcopro.accounts.entities.AppUser;
+import com.starstel.telcopro.accounts.repositories.AppMenuRepository;
 import com.starstel.telcopro.accounts.repositories.AppRoleRepository;
 import com.starstel.telcopro.accounts.repositories.AppUserRepository;
 import com.starstel.telcopro.rh.entities.Employee;
 import com.starstel.telcopro.rh.repositories.EmployeeRepository;
 
 @Service
-@Transactional
+@Transactional 
 public class AccountServiceImpl implements AccountService 
 {	
 	@Autowired
@@ -24,51 +29,13 @@ public class AccountServiceImpl implements AccountService
 	private AppRoleRepository appRoleRepository;
 	
 	@Autowired
+	private AppMenuRepository appMenuRepository;
+	
+	@Autowired
 	private EmployeeRepository employeeRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
-	
-	@Override
-	public List<Employee> listEmployee() 
-	{
-		return employeeRepository.findAll();
-	}
-	
-	@Override
-	public Employee getEmployee(Long id) 
-	{
-		return employeeRepository.getOne(id);
-	}
-	
-	@Override
-	public Employee createEmployee(Employee employee) 
-	{
-		AppUser user = employee.getAppUser();
-		user = saveUser(user);
-		employee.setAppUser(user);
-		
-		return employeeRepository.save(employee);
-	}
-	
-	@Override
-	public Employee editEmployee(Employee employee) 
-	{
-		Employee temp = employeeRepository.findById(employee.getId()).get();
-		
-		if(!temp.getAppUser().getPassword().equals(employee.getAppUser().getPassword()))
-			return createEmployee(employee);
-		else
-			return employeeRepository.save(employee);
-	}
-	
-	@Override
-	public boolean deleteEmployee(Long id) 
-	{
-		employeeRepository.deleteById(id);
-		return true;
-	}
 	
 	@Override
 	public boolean lockEmployee(Long id) 
@@ -137,11 +104,59 @@ public class AccountServiceImpl implements AccountService
 		return appUserRepository.findByUsername(username);
 	}
 
+	@Override
 	public AppUser saveUser(AppUser user) 
 	{
 		String hashPW = passwordEncoder.encode(user.getPassword());
 		user.setPassword(hashPW);
 		return appUserRepository.save(user);
+	}
+
+	@Override
+	public List<AppUser> listAppUsers() {
+		return appUserRepository.findAll();
+	}
+
+	@Override
+	public AppUser getAppUser(Long id) {
+		return appUserRepository.findById(id).get();
+	}
+
+	@Override
+	public AppUser createAppUser(AppUser appUser) {
+		return appUserRepository.save(appUser);
+	}
+
+	@Override
+	public AppUser editAppUser(AppUser appUser) {
+		return appUserRepository.save(appUser);
+	}
+
+	@Override
+	public boolean deleteAppUser(Long id) {
+		appUserRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public AppMenu createAppMenu(AppMenu appMenu) {
+		return appMenuRepository.save(appMenu);
+	}
+
+	@Override
+	public boolean deleteAppMenu(Long id) {
+		appMenuRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public List<AppMenu> getAppMenus() {
+		return appMenuRepository.findAll();
+	}
+
+	@Override
+	public AppMenu getAppMenu(Long id) {
+		return appMenuRepository.findById(id).get();
 	}
 
 }

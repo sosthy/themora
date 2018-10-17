@@ -52,4 +52,9 @@ public class EmployeeServiceImpl implements EmployeeService
 			return null;
 	}
 
+	@Override
+	public Employee employee(Long id) {
+		return employeeRepository.findById(id).get();
+	}
+
 }

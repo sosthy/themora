@@ -17,12 +17,14 @@ import com.starstel.telcopro.stocks.entities.Entrepot;
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.MouvmentLine;
 import com.starstel.telcopro.stocks.entities.MouvmentType;
+import com.starstel.telcopro.stocks.entities.Portable;
 import com.starstel.telcopro.stocks.entities.Product;
 import com.starstel.telcopro.stocks.entities.Recipient;
 import com.starstel.telcopro.stocks.entities.RecipientGroupe;
 import com.starstel.telcopro.stocks.entities.State;
 import com.starstel.telcopro.stocks.entities.Stock;
 import com.starstel.telcopro.stocks.services.EntrepotService;
+import com.starstel.telcopro.stocks.services.PortableService;
 import com.starstel.telcopro.stocks.services.RecipientService;
 import com.starstel.telcopro.stocks.services.StockService;
 
@@ -39,6 +41,8 @@ public class StockRestController
 	private RecipientService recipientService;
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private PortableService portableService;
 	
 	
 	/*@RequestMapping(value="/products", method = RequestMethod.GET)
@@ -159,5 +163,10 @@ public class StockRestController
 	public List<Stock> getAllStockOfEntrepot(@PathVariable Long id)
 	{
 		return entrepotService.getAllStockOfEntrepot(id);
+	}
+	@RequestMapping(value="/portables", method = RequestMethod.GET)
+	public List<Portable> getPortables()
+	{
+		return portableService.getPortables();
 	}
 }
