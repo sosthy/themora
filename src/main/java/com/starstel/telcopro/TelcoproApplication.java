@@ -128,7 +128,7 @@ public class TelcoproApplication implements CommandLineRunner
 		emplacement2 = entrepotService.saveEmplacement(emplacement2);
 		
 		Stock stock1 = new Stock(null, 0.0, new Date(), "TECHNO Y2", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
-		Stock stock2 = new Stock(null, 0.0, new Date(), "ALCATEL Z", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
+		Stock stock2 = new Stock(null, 0.0, new Date(), "ALCATEL Z3", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
 		Stock stock3 = new Stock(null, 0.0, new Date(), "SAMSUNG S2", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
 		Stock stock4 = new Stock(null, 0.0, new Date(), "INFINIX", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
 		stockService.saveStock(stock1);
