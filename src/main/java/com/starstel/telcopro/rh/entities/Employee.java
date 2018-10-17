@@ -3,6 +3,7 @@ package com.starstel.telcopro.rh.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,10 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.starstel.telcopro.accounts.entities.AppUser;
+import com.starstel.telcopro.stocks.entities.Mouvment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +38,9 @@ public class Employee extends Person implements Serializable
 	
     private Date hiring_date;
     private Integer anciennete;
-    
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private Set<Mouvment> mouvments;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USER_ID")
     private AppUser appUser;

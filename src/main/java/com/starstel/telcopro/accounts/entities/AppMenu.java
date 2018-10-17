@@ -1,4 +1,3 @@
-
 package com.starstel.telcopro.accounts.entities;
 
 import java.io.Serializable;
@@ -16,21 +15,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author Sosthene Nouebissi
- */
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
-public class AppRole implements Serializable 
+public class AppMenu implements Serializable 
 {
 	@Id
-	@SequenceGenerator(initialValue = 1, sequenceName = "ROLE_SEQ", allocationSize = 1, name = "role_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id")
+	@SequenceGenerator(initialValue = 1, sequenceName = "MENU_SEQ", allocationSize = 1, name = "menu_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "menu_id")
     private Long id;
 	
-    private String roleName;
-    private String description;
-    @ManyToMany(mappedBy="roles")
-    private List<AppMenu> menus = new ArrayList<>();
-
+    private String name;
+    private String iconName;
+    @ManyToMany
+    private List<AppRole> roles = new ArrayList<>();
 }

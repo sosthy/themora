@@ -1,4 +1,4 @@
-package com.starstel.telcopro.accounts.restcontroller;
+package com.starstel.telcopro.accounts.restcontrollers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

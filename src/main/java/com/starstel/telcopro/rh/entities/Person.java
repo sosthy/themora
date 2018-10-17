@@ -30,11 +30,13 @@ public class Person implements Serializable
 	
     private String name;
     private String surname;
+    private String portable;
+    private String website;
     private String sex;
     private String cni;
     private String phone;
     private String photo;
     
     @Temporal(TemporalType.DATE)
-    private Date birth_date;
+    private Date birthday;
 }

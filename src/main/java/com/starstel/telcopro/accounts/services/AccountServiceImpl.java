@@ -74,7 +74,7 @@ public class AccountServiceImpl implements AccountService
 	public boolean lockEmployee(Long id) 
 	{
 		Employee employee = employeeRepository.findById(id).get();
-		employee.getAppUser().setLock_status(true);
+		employee.getAppUser().setLockStatus(true);
 		employeeRepository.save(employee);
 		return true;
 	}
@@ -83,7 +83,7 @@ public class AccountServiceImpl implements AccountService
 	public boolean unlockEmployee(Long id) 
 	{
 		Employee employee = employeeRepository.findById(id).get();
-		employee.getAppUser().setLock_status(false);
+		employee.getAppUser().setLockStatus(false);
 		employeeRepository.save(employee);
 		return true;
 	}

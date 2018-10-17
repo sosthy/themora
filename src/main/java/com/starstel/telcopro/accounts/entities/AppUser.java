@@ -40,7 +40,7 @@ public class AppUser implements Serializable
 	private String username;
     private String password;
     private String email;
-    private Boolean lock_status;
+    private Boolean lockStatus;
     
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "appUser")
