@@ -41,11 +41,10 @@ public class AppUser implements Serializable
     private String password;
     private String email;
     private Boolean lockStatus;
-    
-    @JsonIgnore
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "appUser")
     private Employee employee;
-    
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<AppRole> roles = new ArrayList<>();
 

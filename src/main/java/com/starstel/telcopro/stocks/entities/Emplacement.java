@@ -30,5 +30,5 @@ public class Emplacement implements Serializable
 	private Entrepot entrepot;
 	@JsonIgnore
 	@OneToMany(mappedBy="emplacement")
-	private Set<Stock> stocks = new HashSet<>();
+	private Set<Product> products = new HashSet<>();
 }

@@ -126,4 +126,9 @@ public class MouvmentServiceImpl implements MouvmentService
 	public Set<MouvmentLine> getAllMouvmentLineOfMouvmentType(Long id) {
 		return new HashSet<>(mouvmentLineRepository.getAllMouvmentLineOfMouvmentType(id));
 	}
+
+	@Override
+	public Mouvment getMouvment(Long id) {
+		return mouvmentRepository.findById(id).get();
+	}
 }

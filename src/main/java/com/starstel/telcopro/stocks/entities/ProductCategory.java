@@ -14,9 +14,9 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class StockCategory extends Category
+public class ProductCategory extends Category
 {
-	@OneToMany(mappedBy="stockCategory")
+	@OneToMany(mappedBy="productCategory")
 	@JsonIgnore
-	private Set<Stock> stocks = new HashSet<>();
+	private Set<Product> products = new HashSet<>();
 }

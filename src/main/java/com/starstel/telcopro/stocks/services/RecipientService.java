@@ -13,11 +13,14 @@ public interface RecipientService
 	RecipientGroupe createRecipientGroupe(RecipientGroupe recipientGroupe);
 	RecipientGroupe editRecipientGroupe(RecipientGroupe recipientGroupe);
 	Boolean deleteRecipientGroupe(Long id);
+	RecipientGroupe getRecipientGroupe(Long id);
 	
 	// Recipient
 	List<Recipient> listRecipient();
 	Recipient createRecipient(Recipient recipient);
 	Recipient editRecipient(Recipient recipient);
 	Boolean deleteRecipient(Long id);
+	Recipient getRecipient(Long id);
 	Set<Recipient> listRecipientOfGroupe(Long id);
+	Boolean addRecipientToGroupe(Long idRecipient,Long idGroupe);
 }

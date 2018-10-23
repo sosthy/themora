@@ -1,11 +1,11 @@
 package com.starstel.telcopro.stocks.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -13,24 +13,31 @@ import javax.persistence.SequenceGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author Sosthene Nouebissi
  * @version 1.0
- * @created 13-oct.-2018 07:24:18
+ * @created 11-oct.-2018 09:04:48
  */
+
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
-public class PortableColor implements Serializable
-{
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+public class AppColor implements Serializable{
+
 	@Id
-	@SequenceGenerator(initialValue = 1, sequenceName = "PCOL_SEQ", allocationSize = 1, name = "pcol_id")
-    @GeneratedValue(generator = "pcol_id")
+	@SequenceGenerator(initialValue = 1, sequenceName = "APP_SEQ", allocationSize = 1, name = "app_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "app_id")
 	private Long id;
 	private String name;
-	@OneToMany(mappedBy="portableColor")
+	@OneToMany
 	@JsonIgnore
-	private Set<Portable> portables = new HashSet<>();
+	private Set<Product> productsList;
+	public AppColor(String name) {
+		super();
+		this.name = name;
+	}
+	
 }

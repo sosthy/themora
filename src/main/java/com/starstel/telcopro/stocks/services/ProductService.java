@@ -5,16 +5,17 @@ import java.util.Set;
 
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.Product;
-import com.starstel.telcopro.stocks.entities.Stock;
+import com.starstel.telcopro.stocks.entities.Product;
 
 public interface ProductService 
 {
 	List<Product> listProducts();
 	Product saveProduct(Product product);
 	Boolean deleteProduct(Long id);
+	Product getProduct(Long id);
 	
 
-	Set<Mouvment> getAllMouvmentOfProduct(Long id);
-	Set<Mouvment> getAllMouvmentOfEmployee(Long id);
+	List<Mouvment> getAllMouvmentOfProduct(Long id);
+	List<Mouvment> getAllMouvmentOfEmployee(Long id);
 	
 }

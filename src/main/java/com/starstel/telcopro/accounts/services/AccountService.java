@@ -26,7 +26,7 @@ public interface AccountService
 	
 	public List<AppUser> listAppUsers();
 	public AppUser getAppUser(Long id);
-	public AppUser createAppUser(AppUser appUser);
+	public AppUser createUserAccount(Employee employee);
 	public AppUser editAppUser(AppUser appUser);
 	public boolean deleteAppUser(Long id);
 	

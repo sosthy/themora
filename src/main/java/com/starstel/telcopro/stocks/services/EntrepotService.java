@@ -7,7 +7,7 @@ import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Entrepot;
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.Product;
-import com.starstel.telcopro.stocks.entities.Stock;
+import com.starstel.telcopro.stocks.entities.Product;
 
 public interface EntrepotService 
 {
@@ -23,12 +23,13 @@ public interface EntrepotService
 	Boolean deleteEmplacement(Long id);
 	
 	Set<Mouvment> getAllMouvmentOfEntrepot(Long id);
-	List<Stock> getAllStockOfEntrepot(Long id);
+	List<Product> getAllStockOfEntrepot(Long id);
 	Long getStockCountOfEntrepot(Long id);
 	Long getProductItemCountOfEntrepot(Long id);
+	Long getPortableItemCountOfEntrepot(Long id);
 	
 	Set<Emplacement> getAllEmplacementOfEntrepot(Long id);
-	Set<Stock> getAllStockOfEmplacement(Long id);
+	Set<Product> getAllStockOfEmplacement(Long id);
 	Long getStockCountOfEmplacement(Long id);
 	Long getProductItemCountOfEmplacement(Long id);
 

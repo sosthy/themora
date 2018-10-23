@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
-public class Memoire implements Serializable
+public class Memory implements Serializable
 {
 	@Id
 	@SequenceGenerator(initialValue = 1, sequenceName = "MEMO_SEQ", allocationSize = 1, name = "memo_id")
