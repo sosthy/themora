@@ -78,5 +78,23 @@ public class RecipientServiceImpl implements RecipientService
 		recipientRepository.deleteById(id);
 		return true;
 	}
+
+	@Override
+	public Boolean addRecipientToGroupe(Long idRecipient, Long idGroupe) {
+		Recipient recipient=getRecipient(idRecipient) ;
+		recipient.setGroupe(getRecipientGroupe(idGroupe));
+		editRecipient(recipient);
+		return true;
+	}
+
+	@Override
+	public Recipient getRecipient(Long id) {
+		return recipientRepository.findById(id).get();
+	}
+
+	@Override
+	public RecipientGroupe getRecipientGroupe(Long id) {
+		return recipientGroupeRepository.findById(id).get();
+	}
 	
 }

@@ -1,9 +1,15 @@
 package com.starstel.telcopro.accounts.restcontrollers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +39,12 @@ public class AccountRestController
 	public Long listUsersCount() 
 	{
 		return accountService.usersCount();
+	}
+	
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	public List<AppUser> listUsers() 
+	{
+		return accountService.listAppUsers();
 	}
 	
 	
@@ -67,8 +79,8 @@ public class AccountRestController
 	}
 	
 	@RequestMapping(value = "/menu/{id}", method = RequestMethod.GET)
-	public AppMenu getMenu(@PathVariable Long id)
-	{
+	public AppMenu getMenu(@PathVariable Long id) {
+	
 		return accountService.getAppMenu(id);
 	}
 	
@@ -78,10 +90,14 @@ public class AccountRestController
 		return accountService.createAppMenu(appMenu);
 	}
 	
-	@RequestMapping(value = "/create-user", method = RequestMethod.POST)
-	public AppUser createRole(@RequestBody Employee employee)
+	@RequestMapping(value = "/create-user-account-employee", method = RequestMethod.POST)
+	public AppUser createUser(@RequestBody Employee employee)
 	{
-		return employeeService.createEmployee(employee).getAppUser();
+		try {
+			return accountService.createUserAccount(employee);
+		} catch (Exception e) {
+			throw new  RuntimeException("Nom d'utilisateur dupliqué.");
+		}
 	}
 	
 	@RequestMapping(value="/roles/{id}", method=RequestMethod.PUT)

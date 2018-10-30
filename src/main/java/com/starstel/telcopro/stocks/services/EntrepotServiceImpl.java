@@ -10,7 +10,7 @@ import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Entrepot;
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.Product;
-import com.starstel.telcopro.stocks.entities.Stock;
+import com.starstel.telcopro.stocks.entities.Product;
 import com.starstel.telcopro.stocks.repositories.EmplacementRepository;
 import com.starstel.telcopro.stocks.repositories.EntrepotRepository;
 
@@ -84,7 +84,7 @@ public class EntrepotServiceImpl implements EntrepotService
 	}
 
 	@Override
-	public List<Stock> getAllStockOfEntrepot(Long id) 
+	public List<Product> getAllStockOfEntrepot(Long id) 
 	{
 		return entrepotRepository.getAllStockOfEntrepot(id);
 	}
@@ -97,6 +97,12 @@ public class EntrepotServiceImpl implements EntrepotService
 
 	@Override
 	public Long getProductItemCountOfEntrepot(Long id) 
+	{
+		return getPortableItemCountOfEntrepot(id);
+	}
+
+	@Override
+	public Long getPortableItemCountOfEntrepot(Long id) 
 	{
 		return entrepotRepository.getPortableItemCountOfEntrepot(id);
 	}
@@ -113,12 +119,12 @@ public class EntrepotServiceImpl implements EntrepotService
 	}
 
 	@Override
-	public Set<Stock> getAllStockOfEmplacement(Long id) 
+	public Set<Product> getAllStockOfEmplacement(Long id) 
 	{
 		Emplacement emplacement = emplacementRepository.findById(id).get();
 		
 		if(emplacement != null)
-			return emplacement.getStocks();
+			return emplacement.getProducts();
 		else
 			return null;
 	}
@@ -129,7 +135,7 @@ public class EntrepotServiceImpl implements EntrepotService
 		Emplacement emplacement = emplacementRepository.findById(id).get();
 		
 		if(emplacement != null)
-			return Long.valueOf(emplacement.getStocks().size());
+			return Long.valueOf(emplacement.getProducts().size());
 		else
 			return null;
 	}

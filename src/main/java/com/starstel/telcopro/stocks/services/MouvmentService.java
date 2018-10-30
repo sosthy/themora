@@ -29,4 +29,5 @@ public interface MouvmentService
 	MouvmentLine saveMouvmentLine(MouvmentLine mouvmentLine);
 	Boolean deleteMouvmentLine(Long id);
 	Set<MouvmentLine> getAllMouvmentLineOfMouvmentType(Long id);
+	Mouvment getMouvment(Long id);
 }

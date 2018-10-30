@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class Mouvment implements Serializable
 	@ManyToOne
 	private Entrepot entrepotRecipient;
 	@JsonIgnore
-	@OneToMany(mappedBy="mouvment")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="mouvment")
 	private Set<MouvmentLine> mouvmentLines = new HashSet<>();
 	@ManyToOne
 	private MouvmentType mouvmentType;
@@ -45,14 +46,54 @@ public class Mouvment implements Serializable
 	private Employee user;
 	@ManyToOne
 	private Recipient recipient;
-	
-	
 	@Override
-	public int hashCode() 
-	{
-		if(reference != null && id != null)
-			return reference.hashCode() + id.hashCode();
-		else
-			return super.hashCode();
+	public int hashCode() {
+		final int prime = 37;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((priceTotal == null) ? 0 : priceTotal.hashCode());
+		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
+		result = prime * result + ((reference == null) ? 0 : reference.hashCode());
+		return result;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mouvment other = (Mouvment) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (priceTotal == null) {
+			if (other.priceTotal != null)
+				return false;
+		} else if (!priceTotal.equals(other.priceTotal))
+			return false;
+		if (quantity == null) {
+			if (other.quantity != null)
+				return false;
+		} else if (!quantity.equals(other.quantity))
+			return false;
+		if (reference == null) {
+			if (other.reference != null)
+				return false;
+		} else if (!reference.equals(other.reference))
+			return false;
+		return true;
+	}
+	
+	
+	
 }

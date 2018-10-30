@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -16,35 +18,40 @@ import com.starstel.telcopro.accounts.entities.AppUser;
 import com.starstel.telcopro.accounts.repositories.AppMenuRepository;
 import com.starstel.telcopro.accounts.services.AccountService;
 import com.starstel.telcopro.rh.entities.Employee;
+import com.starstel.telcopro.rh.repositories.EmployeeRepository;
 import com.starstel.telcopro.rh.services.EmployeeService;
+import com.starstel.telcopro.stocks.entities.AppColor;
+import com.starstel.telcopro.stocks.entities.Camera;
 import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Entrepot;
 import com.starstel.telcopro.stocks.entities.MeasureUnit;
 import com.starstel.telcopro.stocks.entities.Mouvment;
+import com.starstel.telcopro.stocks.entities.MouvmentLine;
 import com.starstel.telcopro.stocks.entities.MouvmentType;
 import com.starstel.telcopro.stocks.entities.Portable;
 import com.starstel.telcopro.stocks.entities.Product;
 import com.starstel.telcopro.stocks.entities.Recipient;
 import com.starstel.telcopro.stocks.entities.RecipientGroupe;
 import com.starstel.telcopro.stocks.entities.State;
-import com.starstel.telcopro.stocks.entities.Stock;
-import com.starstel.telcopro.stocks.entities.StockCategory;
+import com.starstel.telcopro.stocks.entities.Product;
+import com.starstel.telcopro.stocks.entities.ProductCategory;
+import com.starstel.telcopro.stocks.services.AppColorService;
 import com.starstel.telcopro.stocks.services.EntrepotService;
 import com.starstel.telcopro.stocks.services.MouvmentService;
 import com.starstel.telcopro.stocks.services.PortableService;
 import com.starstel.telcopro.stocks.services.ProductService;
 import com.starstel.telcopro.stocks.services.RecipientService;
-import com.starstel.telcopro.stocks.services.StockService;
+import com.starstel.telcopro.stocks.services.ProductService;
 
 @SpringBootApplication
-public class TelcoproApplication implements CommandLineRunner
+public class TelcoproApplication extends SpringBootServletInitializer implements CommandLineRunner
 {
 	@Autowired
 	private AccountService accountService;
 	@Autowired
 	private EmployeeService employeeService;
 	@Autowired
-	private StockService stockService;
+	private ProductService productService;
 	@Autowired
 	private RecipientService recipientService;
 	@Autowired
@@ -53,8 +60,9 @@ public class TelcoproApplication implements CommandLineRunner
 	private EntrepotService entrepotService;
 	@Autowired
 	private PortableService portableService;
+	
 	@Autowired
-	private ProductService productService;
+	private AppColorService appColorService;
 	
 	public static void main(String[] args) 
 	{
@@ -66,13 +74,18 @@ public class TelcoproApplication implements CommandLineRunner
 	{	
 		return new BCryptPasswordEncoder();
 	}
-
+	
+	@Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(TelcoproApplication.class);
+    }
+	
 	@Override
 	public void run(String... args) throws Exception 
 	{	
-		AppMenu menuStock= new AppMenu("Gestion des stocks","USER");
+		
+		AppMenu menuProduct= new AppMenu("Gestion des products","USER");
 		AppMenu menuRh= new AppMenu("Gestion des ressources humaines","RH");
-
 		
 		AppRole admin = new AppRole();
 		admin.setRoleName("ADMIN");
@@ -97,11 +110,11 @@ public class TelcoproApplication implements CommandLineRunner
 		simple = accountService.createRole(simple);
 
 
-		menuStock.getRoles().add(magasinier);
+		menuProduct.getRoles().add(magasinier);
 		menuRh.getRoles().add(humanRessource);
 		
 		menuRh=accountService.createAppMenu(menuRh);
-		menuStock=accountService.createAppMenu(menuStock);
+		menuProduct=accountService.createAppMenu(menuProduct);
 		
 		
 		
@@ -173,61 +186,70 @@ public class TelcoproApplication implements CommandLineRunner
 		entrepot1 = entrepotService.saveEntrepot(entrepot1);
 		entrepot2 = entrepotService.saveEntrepot(entrepot2);
 		
-		Mouvment mouvment1 = new Mouvment(null, "ML752P", new Date(), 0.0, 0.0, entrepot1, null, null, mouvmentType1, employee, recipient1);
-		Mouvment mouvment2 = new Mouvment(null, "OZ986E", new Date(), 0.0, 0.0, entrepot1, null, null, mouvmentType1, employee, recipient1);
-		mouvment1 = mouvmentService.saveMouvment(mouvment1);
-		mouvment2 = mouvmentService.saveMouvment(mouvment2);
-		
 		Emplacement emplacement1 = new Emplacement(null, "Magasin Sabba", entrepot1, null);
 		Emplacement emplacement2 = new Emplacement(null, "Etage", entrepot1, null);
 		emplacement1 = entrepotService.saveEmplacement(emplacement1);
 		emplacement2 = entrepotService.saveEmplacement(emplacement2);
 		
-		Stock stock1 = new Stock(null, 0.0, new Date(), "TECHNO Y2", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
-		Stock stock2 = new Stock(null, 0.0, new Date(), "ALCATEL Z", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
-		Stock stock3 = new Stock(null, 0.0, new Date(), "SAMSUNG S2", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
-		Stock stock4 = new Stock(null, 0.0, new Date(), "INFINIX", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, null, null, null);
-		Stock stock5 = new Stock(null, 2.0, Date.from(Instant.now()), "SP4 Senior Phone", "images/SP4_Senior_Phone.PNG", 
-				80000.0, 60000.0, 70000.0, 100.0, 20.0, 2000.0, "No", null, emplacement1, 
-				null, null, null);
-		
 
-		Portable portable= new Portable("C",2D,"B","Sim",2D,2D,"Ip",Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,null
-				,null,null,null,null,null,null);
-		Portable portable1= new Portable("C",2D,"B","Sim",2D,2D,"Ip",Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,null
-				,null,null,null,null,null,null);
-		Portable portable2= new Portable("C",2D,"B","Sim",2D,2D,"Ip",Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,null
-				,null,null,null,null,null,null);
-		Portable portable3= new Portable("C",2D,"B","Sim",2D,2D,"Ip",Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,null
-				,null,null,null,null,null,null);
-		Portable portable4= new Portable("C",2D,"B","Sim",2D,2D,"Ip",Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,Boolean.TRUE,null
-				,null,null,null,null,null,null);
+		Camera camera = new Camera(null, 8.0, 13.0);
+		Camera camera2 = new Camera(null, 10.0, 13.0);
+		Camera camera3 = new Camera(null, 10.0, 16.0);
+
+		AppColor redColor = new AppColor("RED");
+		AppColor blueColor = new AppColor("BLUE");
+		AppColor blackColor = new AppColor("BLACK");
+		AppColor whiteColor = new AppColor("WHITE");
 		
-		portable.setStock(stock1);
-		portable1.setStock(stock2);
-		portable2.setStock(stock3);
-		portable3.setStock(stock4);
-		portable4.setStock(stock5);
 		
-		stock1.setProduct(portable);
-		stock2.setProduct(portable1);
-		stock3.setProduct(portable2);
-		stock4.setProduct(portable3);
-		stock5.setProduct(portable4);
+		Portable portable= new Portable(null, 0.0, new Date(), "TECHNO Y2", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null, 
+				emplacement1, null, null, null,"C",2D,"B","Sim",2D,2D,"Ip",true,true,true,true,
+				null,null,camera,null,null,null,blueColor);
 		
-		stockService.saveStock(stock1);
-		stockService.saveStock(stock2);
-		stockService.saveStock(stock3);
-		stockService.saveStock(stock4);
-		stockService.saveStock(stock5);
+		Portable portable1= new Portable(null, 0.0, new Date(), "ALCATEL Z3", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", 
+				null, emplacement2, null, null, null,"C",2D,"B","Sim",2D,2D,"Ip",false,false,false,
+				true,null,null,camera2,null,null,null,redColor);
+		
+		Portable portable2= new Portable(null, 0.0, new Date(), "SAMSUNG S2", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", 
+				null, emplacement2, null, null, null,"C",2D,"B","Sim",2D,2D,"Ip",false,true,false,
+				true,null,null,camera2,null,null,null,blueColor);
+		
+		Portable portable3= new Portable(null, 0.0, new Date(), "INFINIX", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", 
+				null, emplacement1, null, null, null,"C",2D,"B","Sim",2D,2D,"Ip",true,false,true,
+				false,null,null,camera3,null,null,null,blackColor);
+		
+		Portable portable4= new Portable(null, 0.0, new Date(), "TECHNO Y3", null, 0.0, 0.0, 0.0, 100.0, 20.0, 2000.0, "No", null,
+				emplacement1, null, null, null,"C",2D,"B","Sim",2D,2D,"Ip",false,true,true,false,
+				null,null,camera,null,null,null,whiteColor);
+		
+		
+		System.err.println("ready to save first product");
 		
 		portableService.save(portable);
 		portableService.save(portable1);
 		portableService.save(portable2);
 		portableService.save(portable3);
 		portableService.save(portable4);
+
+
+		Mouvment mouvment1 = new Mouvment(null, "ML752P", new Date(), 0.0, 0.0, entrepot1, null, null, mouvmentType1, employee, recipient1);
+		Mouvment mouvment2 = new Mouvment(null, "OZ986E", new Date(), 0.0, 0.0, entrepot1, null, null, mouvmentType1, employee, recipient1);
+
+		mouvment1 = mouvmentService.saveMouvment(mouvment1);
+		mouvment2 = mouvmentService.saveMouvment(mouvment2);
 		
+		MouvmentLine mouvmentLine1 = new MouvmentLine(null, 10D, 60000D, 600000D, mouvment1, portable,"");
+		MouvmentLine mouvmentLine2 = new MouvmentLine(null, 10D, 80000D, 800000D, mouvment2, portable2,"");
+		MouvmentLine mouvmentLine3 = new MouvmentLine(null, 10D, 80000D, 800000D, mouvment2, portable3,"");
+		MouvmentLine mouvmentLine4 = new MouvmentLine(null, 10D, 80000D, 800000D, mouvment1, portable4,"");
+		MouvmentLine mouvmentLine5 = new MouvmentLine(null, 10D, 80000D, 800000D, mouvment2, portable4,"");
 		
+		mouvmentService.saveMouvmentLine(mouvmentLine1);	
+		mouvmentService.saveMouvmentLine(mouvmentLine2);	
+		mouvmentService.saveMouvmentLine(mouvmentLine3);	
+		mouvmentService.saveMouvmentLine(mouvmentLine4);	
+		mouvmentService.saveMouvmentLine(mouvmentLine5);
 		
+		entrepotService.deleteEntrepot(1L);
 	}
 }

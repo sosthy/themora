@@ -1,17 +1,29 @@
 package com.starstel.telcopro.stocks.services;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.starstel.telcopro.stocks.entities.Camera;
+import com.starstel.telcopro.stocks.entities.Cpu;
 import com.starstel.telcopro.stocks.entities.Emplacement;
+import com.starstel.telcopro.stocks.entities.Memory;
 import com.starstel.telcopro.stocks.entities.Mouvment;
+import com.starstel.telcopro.stocks.entities.MouvmentLine;
 import com.starstel.telcopro.stocks.entities.Portable;
+import com.starstel.telcopro.stocks.entities.PortableCategory;
+import com.starstel.telcopro.stocks.entities.PortableUnit;
+import com.starstel.telcopro.stocks.entities.SystemOS;
+import com.starstel.telcopro.stocks.repositories.AppColorRepository;
+import com.starstel.telcopro.stocks.repositories.CameraRepository;
+import com.starstel.telcopro.stocks.repositories.CpuRepository;
+import com.starstel.telcopro.stocks.repositories.MemoryRepository;
+import com.starstel.telcopro.stocks.repositories.PortableCategoryRepository;
 import com.starstel.telcopro.stocks.repositories.PortableRepository;
+import com.starstel.telcopro.stocks.repositories.PortableUnitRepository;
+import com.starstel.telcopro.stocks.repositories.SystemOSRepository;
 
 
 @Service
@@ -19,9 +31,45 @@ public class PortableServiceImpl implements PortableService {
 
 	@Autowired
 	private PortableRepository portableRepository;
-
+	
+	@Autowired
+	private CameraRepository cameraRepository;
+	
+	@Autowired
+	private SystemOSRepository systemOSRepository;
+	
+	@Autowired
+	private PortableUnitRepository portableUnitRepository;
+	
+	@Autowired
+	private PortableCategoryRepository portableCategoryRepository;
+	
+	@Autowired
+	private AppColorRepository appColorRepository;
+	
+	@Autowired
+	private MemoryRepository memoryRepository;
+	
+	@Autowired
+	private CpuRepository cpuRepository;
+	
 	@Override
 	public Portable save(Portable portable) {
+		
+		if(portable.getDateCreation() == null)
+			portable.setDateCreation(new Date());
+		
+		if(portable.getCamera() != null)
+			portable.setCamera(saveCamera(portable.getCamera()));
+		if(portable.getMemory() != null)
+			portable.setMemory(saveMemory(portable.getMemory()));
+		if(portable.getCpu() != null)
+			portable.setCpu(saveCpu(portable.getCpu()));
+		if(portable.getAppColor() != null)
+			portable.setAppColor(appColorRepository.save(portable.getAppColor()));
+		if(portable.getPortableCategory() != null)
+			portable.setPortableCategory(savePortableCategory(portable.getPortableCategory()));
+
 		return portableRepository.save(portable);
 	}
 	
@@ -42,13 +90,154 @@ public class PortableServiceImpl implements PortableService {
 	}
 
 	@Override
-	public Emplacement getEmplacement(Long id) {
+	public List<Emplacement> getEmplacement(Long id) {
 		return portableRepository.getEmplacement(id);
 	}
 
 	@Override
-	public Mouvment getAllMouvment(Long id) {
-		// TODO Auto-generated method stub
+	public List<Mouvment> getAllMouvment(Long id) {
+		return portableRepository.getAllMouvment(id);
+	}
+
+	@Override
+	public Camera saveCamera(Camera camera) {
+		return cameraRepository.save(camera);
+	}
+
+	@Override
+	public Boolean deleteCamera(Long id) {
+		cameraRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public List<Camera> getCameras() {
+		return cameraRepository.findAll();
+	}
+
+	@Override
+	public Camera getCamera(Long id) {
+		return cameraRepository.findById(id).get();
+	}
+
+	@Override
+	public SystemOS saveSystemOS(SystemOS systemOS) {
+		return systemOSRepository.save(systemOS);
+	}
+
+	@Override
+	public Boolean deleteSystemOS(Long id) {
+		systemOSRepository.deleteById(id);
 		return null;
+	}
+
+	@Override
+	public List<SystemOS> getSystemOSs() {
+		return systemOSRepository.findAll();
+	}
+
+	@Override
+	public SystemOS getSystemOS(Long id) {
+		return systemOSRepository.findById(id).get();
+	}
+
+	@Override
+	public PortableCategory savePortableCategory(PortableCategory portableCategory) {
+		return portableCategoryRepository.save(portableCategory);
+	}
+
+	@Override
+	public Boolean deletePortableCategory(Long id) {
+		portableCategoryRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public List<PortableCategory> getPortableCategories() {
+		return portableCategoryRepository.findAll();
+	}
+
+	@Override
+	public PortableCategory getPortableCategory(Long id) {
+		return portableCategoryRepository.findById(id).get();
+	}
+
+	@Override
+	public PortableUnit savePortableUnit(PortableUnit portableUnit) {
+		return portableUnitRepository.save(portableUnit);
+	}
+
+	@Override
+	public Boolean deletePortableUnit(Long id) {
+		portableUnitRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public List<PortableUnit> getPortableUnits() {
+		return portableUnitRepository.findAll();
+	}
+
+	@Override
+	public PortableUnit getPortableUnit(Long id) {
+		return portableUnitRepository.findById(id).get();
+	}
+
+	@Override
+	public Memory saveMemory(Memory memory) {
+		return memoryRepository.save(memory);
+	}
+
+	@Override
+	public Boolean deleteMemory(Long id) {
+		memoryRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public List<Memory> getMemories() {
+		return memoryRepository.findAll();
+	}
+
+	@Override
+	public Memory getMemory(Long id) {
+		return memoryRepository.findById(id).get();
+	}
+
+	@Override
+	public Cpu saveCpu(Cpu cpu) {
+		return cpuRepository.save(cpu);
+	}
+
+	@Override
+	public Boolean deleteCpu(Long id) {
+		cpuRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public List<Cpu> getCpus() {
+		return cpuRepository.findAll();
+	}
+
+	@Override
+	public Cpu getCpu(Long id) {
+		return cpuRepository.findById(id).get();
+	}
+
+	@Override
+	public Portable getPortable(String numeroSerie) {
+		return portableRepository.getPortable(numeroSerie);
+	}
+
+	@Override
+	public List<Portable> searchPortable(String motCle) {
+		return portableRepository.searchPortable("%"+motCle+"%");
+	}
+
+	@Override
+	public List<Portable> searchPortable(Portable portable) {
+		
+		return portableRepository.searchPortable(portable);
 	}
 }

@@ -1,0 +1,170 @@
+package com.starstel.telcopro.stocks.restcontrollers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.starstel.telcopro.stocks.entities.Camera;
+import com.starstel.telcopro.stocks.entities.Emplacement;
+import com.starstel.telcopro.stocks.entities.Mouvment;
+import com.starstel.telcopro.stocks.entities.Portable;
+import com.starstel.telcopro.stocks.entities.PortableCategory;
+import com.starstel.telcopro.stocks.entities.PortableUnit;
+import com.starstel.telcopro.stocks.entities.SystemOS;
+import com.starstel.telcopro.stocks.services.AppColorService;
+import com.starstel.telcopro.stocks.services.PortableService;
+
+@CrossOrigin("*")
+@RestController
+@RequestMapping("/stocks/portables")
+public class PortableRestController {
+
+	@Autowired
+	private PortableService portableService;
+	@Autowired
+	private AppColorService appColorService;
+	
+
+	@RequestMapping(value="", method = RequestMethod.GET)
+	public List<Portable> getPortables()
+	{
+		return portableService.getPortables();
+	}
+
+	@RequestMapping(value="", method = RequestMethod.POST)
+	public Portable save(@RequestBody Portable portable) {
+		return portableService.save(portable);
+	}
+
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	public Boolean delete(@PathVariable Long id) {
+		return portableService.delete(id);
+	}
+
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public Portable getPortable(@PathVariable Long id) {
+		return portableService.getPortable(id);
+	}
+
+	@RequestMapping(value="/{numeroSerie}", method = RequestMethod.GET)
+	public Portable getPortable(@PathVariable String numeroSerie) {
+		return portableService.getPortable(numeroSerie);
+	}
+
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public List<Portable> searchPortable(@RequestParam(name="mc",defaultValue="") String motCle) {
+		return portableService.searchPortable(motCle);
+	}
+
+	@RequestMapping(value="/search", method = RequestMethod.POST)
+	public List<Portable> searchPortable(@RequestBody Portable portable) {
+		return portableService.searchPortable(portable);
+	}
+	
+	@RequestMapping(value="/emplacement-of-portable/{id}", method = RequestMethod.GET)
+	public List<Emplacement> getEmplacement(@PathVariable Long id) {
+		return portableService.getEmplacement(id);
+	}
+
+	@RequestMapping(value="/mouvment-of-portable/{id}", method = RequestMethod.GET)
+	public List<Mouvment> getAllMouvment(@PathVariable Long id) {
+		return portableService.getAllMouvment(id);
+	}
+
+	@RequestMapping(value="/cameras", method = RequestMethod.POST)
+	public Camera saveCamera(@RequestBody Camera camera) {
+		return portableService.saveCamera(camera);
+	}
+
+	@RequestMapping(value="/cameras/{id}", method = RequestMethod.DELETE)
+	public Boolean deleteCamera(@PathVariable Long id) {
+		return portableService.deleteCamera(id);
+	}
+
+	@RequestMapping(value="/cameras", method = RequestMethod.GET)
+	public List<Camera> getCameras() {
+		return portableService.getCameras();
+	}
+
+	@RequestMapping(value="/cameras/{id}", method = RequestMethod.GET)
+	public Camera getCamera(@PathVariable Long id) {
+		return portableService.getCamera(id);
+	}
+
+	@RequestMapping(value="/systemos", method = RequestMethod.POST)
+	public SystemOS saveSystemOS(@RequestBody SystemOS systemOS) {
+		return portableService.saveSystemOS(systemOS);
+	}
+
+	@RequestMapping(value="/systemos/{id}", method = RequestMethod.DELETE)
+	public Boolean deleteSystemOS(@PathVariable Long id) {
+		return portableService.deleteSystemOS(id);
+	}
+
+	@RequestMapping(value="/systemos", method = RequestMethod.GET)
+	public List<SystemOS> getSystemOSs() {
+		return portableService.getSystemOSs();
+	}
+
+	@RequestMapping(value="/systemos/{id}", method = RequestMethod.GET)
+	public SystemOS getSystemOS(@PathVariable Long id) {
+		return portableService.getSystemOS(id);
+	}
+
+	@RequestMapping(value="/categories", method = RequestMethod.POST)
+	public PortableCategory savePortableCategory(@RequestBody PortableCategory portableCategory) {
+		return portableService.savePortableCategory(portableCategory);
+	}
+
+	@RequestMapping(value="/categories/{id}", method = RequestMethod.DELETE)
+	public Boolean deletePortableCategory(@PathVariable Long id) {
+		return portableService.deletePortableCategory(id);
+	}
+
+	@RequestMapping(value="/categories", method = RequestMethod.GET)
+	public List<PortableCategory> getPortableCategories() {
+		return portableService.getPortableCategories();
+	}
+
+	@RequestMapping(value="/categories/{id}", method = RequestMethod.GET)
+	public PortableCategory getPortableCategory(@PathVariable Long id) {
+		return portableService.getPortableCategory(id);
+	}
+
+	@RequestMapping(value="/units", method = RequestMethod.POST)
+	public PortableUnit savePortableUnit(@RequestBody PortableUnit portableCategory) {
+		return portableService.savePortableUnit(portableCategory);
+	}
+
+	@RequestMapping(value="/units/{id}", method = RequestMethod.DELETE)
+	public Boolean deletePortableUnit(@PathVariable Long id) {
+		return portableService.deletePortableUnit(id);
+	}
+
+	@RequestMapping(value="/units", method = RequestMethod.GET)
+	public List<PortableUnit> getPortableUnits() {
+		return portableService.getPortableUnits();
+	}
+
+	@RequestMapping(value="/units/{id}", method = RequestMethod.GET)
+	public PortableUnit getPortableUnit(@PathVariable Long id) {
+		return portableService.getPortableUnit(id);
+	}
+
+	@RequestMapping(value="/colors-of-portable", method = RequestMethod.GET)
+	public List<String> getPortableColor() {
+		return appColorService.getPortableColor();
+	}
+
+	@RequestMapping(value="/color/{color}", method = RequestMethod.GET)
+	public List<Portable> getPortableColor(@PathVariable String color) {
+		return appColorService.getPortableByColor(color);
+	}
+}

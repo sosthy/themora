@@ -3,6 +3,7 @@ package com.starstel.telcopro.stocks.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class PortableCategory extends Category 
 {
-	@OneToMany(mappedBy="portableCategory")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="portableCategory")
 	@JsonIgnore
 	public Set<Portable> portables = new HashSet<>();
 }

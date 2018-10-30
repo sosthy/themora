@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -123,8 +124,17 @@ public class AccountServiceImpl implements AccountService
 	}
 
 	@Override
-	public AppUser createAppUser(AppUser appUser) {
-		return appUserRepository.save(appUser);
+	public AppUser createUserAccount(Employee employee) {
+		
+		AppUser appUser= employee.getAppUser();
+		
+		appUser.setEmployee(employee);
+		appUser=appUserRepository.save(appUser);
+		
+		employee.setAppUser(appUser);
+		employee= employeeRepository.save(employee);
+		
+		return employee.getAppUser();
 	}
 
 	@Override
