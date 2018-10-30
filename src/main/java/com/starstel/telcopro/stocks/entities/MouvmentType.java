@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,10 +15,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class MouvmentType implements Serializable
 {
 	@Id
@@ -26,7 +29,7 @@ public class MouvmentType implements Serializable
 	private Long id;
 	private String name;
 	@JsonIgnore
-	@OneToMany(mappedBy="mouvmentType")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="mouvmentType")
 	private Set<Mouvment> mouvments = new HashSet<>();
 	private String note;
 }

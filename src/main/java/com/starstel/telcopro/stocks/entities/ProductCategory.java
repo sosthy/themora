@@ -3,6 +3,7 @@ package com.starstel.telcopro.stocks.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,7 +17,7 @@ import lombok.Setter;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class ProductCategory extends Category
 {
-	@OneToMany(mappedBy="productCategory")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="productCategory")
 	@JsonIgnore
 	private Set<Product> products = new HashSet<>();
 }

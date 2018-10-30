@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -16,6 +18,7 @@ import com.starstel.telcopro.accounts.entities.AppUser;
 import com.starstel.telcopro.accounts.repositories.AppMenuRepository;
 import com.starstel.telcopro.accounts.services.AccountService;
 import com.starstel.telcopro.rh.entities.Employee;
+import com.starstel.telcopro.rh.repositories.EmployeeRepository;
 import com.starstel.telcopro.rh.services.EmployeeService;
 import com.starstel.telcopro.stocks.entities.AppColor;
 import com.starstel.telcopro.stocks.entities.Camera;
@@ -41,7 +44,7 @@ import com.starstel.telcopro.stocks.services.RecipientService;
 import com.starstel.telcopro.stocks.services.ProductService;
 
 @SpringBootApplication
-public class TelcoproApplication implements CommandLineRunner
+public class TelcoproApplication extends SpringBootServletInitializer implements CommandLineRunner
 {
 	@Autowired
 	private AccountService accountService;
@@ -57,6 +60,7 @@ public class TelcoproApplication implements CommandLineRunner
 	private EntrepotService entrepotService;
 	@Autowired
 	private PortableService portableService;
+	
 	@Autowired
 	private AppColorService appColorService;
 	
@@ -70,13 +74,18 @@ public class TelcoproApplication implements CommandLineRunner
 	{	
 		return new BCryptPasswordEncoder();
 	}
-
+	
+	@Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(TelcoproApplication.class);
+    }
+	
 	@Override
 	public void run(String... args) throws Exception 
 	{	
+		
 		AppMenu menuProduct= new AppMenu("Gestion des products","USER");
 		AppMenu menuRh= new AppMenu("Gestion des ressources humaines","RH");
-
 		
 		AppRole admin = new AppRole();
 		admin.setRoleName("ADMIN");
@@ -240,9 +249,7 @@ public class TelcoproApplication implements CommandLineRunner
 		mouvmentService.saveMouvmentLine(mouvmentLine3);	
 		mouvmentService.saveMouvmentLine(mouvmentLine4);	
 		mouvmentService.saveMouvmentLine(mouvmentLine5);
-
 		
-		
-		
+		entrepotService.deleteEntrepot(1L);
 	}
 }

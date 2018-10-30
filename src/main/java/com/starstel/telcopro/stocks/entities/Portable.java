@@ -38,7 +38,7 @@ public class Portable extends Product
 	private Boolean waterproof;
 	private Boolean splashproof;
 	private Boolean dushproof;
-	@OneToMany(mappedBy="portable")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="portable")
 	@JsonIgnore
 	private Set<PortableItem> portableItem = new HashSet<>();
 	@ManyToOne
@@ -78,6 +78,91 @@ public class Portable extends Product
 		this.cpu = cpu;
 		this.os = os;
 		this.portableCategory = portableCategory;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 37;
+		int result = super.hashCode();
+		result = prime * result + ((battery == null) ? 0 : battery.hashCode());
+		result = prime * result + ((connection == null) ? 0 : connection.hashCode());
+		result = prime * result + ((dimension == null) ? 0 : dimension.hashCode());
+		result = prime * result + ((dushproof == null) ? 0 : dushproof.hashCode());
+		result = prime * result + ((fingerprint == null) ? 0 : fingerprint.hashCode());
+		result = prime * result + ((ipRating == null) ? 0 : ipRating.hashCode());
+		result = prime * result + ((screen == null) ? 0 : screen.hashCode());
+		result = prime * result + ((sim == null) ? 0 : sim.hashCode());
+		result = prime * result + ((splashproof == null) ? 0 : splashproof.hashCode());
+		result = prime * result + ((waterproof == null) ? 0 : waterproof.hashCode());
+		result = prime * result + ((weight == null) ? 0 : weight.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Portable other = (Portable) obj;
+		if (battery == null) {
+			if (other.battery != null)
+				return false;
+		} else if (!battery.equals(other.battery))
+			return false;
+		if (connection == null) {
+			if (other.connection != null)
+				return false;
+		} else if (!connection.equals(other.connection))
+			return false;
+		if (dimension == null) {
+			if (other.dimension != null)
+				return false;
+		} else if (!dimension.equals(other.dimension))
+			return false;
+		if (dushproof == null) {
+			if (other.dushproof != null)
+				return false;
+		} else if (!dushproof.equals(other.dushproof))
+			return false;
+		if (fingerprint == null) {
+			if (other.fingerprint != null)
+				return false;
+		} else if (!fingerprint.equals(other.fingerprint))
+			return false;
+		if (ipRating == null) {
+			if (other.ipRating != null)
+				return false;
+		} else if (!ipRating.equals(other.ipRating))
+			return false;
+		if (screen == null) {
+			if (other.screen != null)
+				return false;
+		} else if (!screen.equals(other.screen))
+			return false;
+		if (sim == null) {
+			if (other.sim != null)
+				return false;
+		} else if (!sim.equals(other.sim))
+			return false;
+		if (splashproof == null) {
+			if (other.splashproof != null)
+				return false;
+		} else if (!splashproof.equals(other.splashproof))
+			return false;
+		if (waterproof == null) {
+			if (other.waterproof != null)
+				return false;
+		} else if (!waterproof.equals(other.waterproof))
+			return false;
+		if (weight == null) {
+			if (other.weight != null)
+				return false;
+		} else if (!weight.equals(other.weight))
+			return false;
+		return true;
 	}
 	
 	

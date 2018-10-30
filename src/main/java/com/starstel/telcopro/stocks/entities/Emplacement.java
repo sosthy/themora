@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,10 +16,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class Emplacement implements Serializable 
 {
 	@Id
@@ -29,6 +32,44 @@ public class Emplacement implements Serializable
 	@ManyToOne
 	private Entrepot entrepot;
 	@JsonIgnore
-	@OneToMany(mappedBy="emplacement")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="emplacement")
 	private Set<Product> products = new HashSet<>();
+	
+	@Override
+	public String toString() {
+		return "Emplacement [id=" + id + ", name=" + name + ", entrepot=" + entrepot + ", products=" + products + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 37;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Emplacement other = (Emplacement) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	
 }
