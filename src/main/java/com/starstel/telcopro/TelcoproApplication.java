@@ -1,6 +1,5 @@
 package com.starstel.telcopro;
 
-import java.time.Instant;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,33 +14,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.starstel.telcopro.accounts.entities.AppMenu;
 import com.starstel.telcopro.accounts.entities.AppRole;
 import com.starstel.telcopro.accounts.entities.AppUser;
-import com.starstel.telcopro.accounts.repositories.AppMenuRepository;
 import com.starstel.telcopro.accounts.services.AccountService;
 import com.starstel.telcopro.rh.entities.Employee;
-import com.starstel.telcopro.rh.repositories.EmployeeRepository;
 import com.starstel.telcopro.rh.services.EmployeeService;
 import com.starstel.telcopro.stocks.entities.AppColor;
 import com.starstel.telcopro.stocks.entities.Camera;
 import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Entrepot;
-import com.starstel.telcopro.stocks.entities.MeasureUnit;
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.MouvmentLine;
 import com.starstel.telcopro.stocks.entities.MouvmentType;
 import com.starstel.telcopro.stocks.entities.Portable;
-import com.starstel.telcopro.stocks.entities.Product;
 import com.starstel.telcopro.stocks.entities.Recipient;
 import com.starstel.telcopro.stocks.entities.RecipientGroupe;
-import com.starstel.telcopro.stocks.entities.State;
-import com.starstel.telcopro.stocks.entities.Product;
-import com.starstel.telcopro.stocks.entities.ProductCategory;
 import com.starstel.telcopro.stocks.services.AppColorService;
 import com.starstel.telcopro.stocks.services.EntrepotService;
 import com.starstel.telcopro.stocks.services.MouvmentService;
 import com.starstel.telcopro.stocks.services.PortableService;
 import com.starstel.telcopro.stocks.services.ProductService;
 import com.starstel.telcopro.stocks.services.RecipientService;
-import com.starstel.telcopro.stocks.services.ProductService;
 
 @SpringBootApplication
 public class TelcoproApplication extends SpringBootServletInitializer implements CommandLineRunner
@@ -84,8 +75,8 @@ public class TelcoproApplication extends SpringBootServletInitializer implements
 	public void run(String... args) throws Exception 
 	{	
 		
-		AppMenu menuProduct= new AppMenu("Gestion des products","USER");
-		AppMenu menuRh= new AppMenu("Gestion des ressources humaines","RH");
+		AppMenu menuProduct= new AppMenu("Inventory", "fa-building-o", "Manage stocks");
+		AppMenu menuRh= new AppMenu("Resources", "fa-tachometer", "Manage resources");
 		
 		AppRole admin = new AppRole();
 		admin.setRoleName("ADMIN");

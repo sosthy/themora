@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.starstel.telcopro.rh.entities.Employee;
 
 import lombok.AllArgsConstructor;
