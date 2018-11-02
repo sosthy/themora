@@ -19,7 +19,6 @@ import com.starstel.telcopro.stocks.entities.AppColor;
 import com.starstel.telcopro.stocks.entities.Camera;
 import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Entrepot;
-import com.starstel.telcopro.stocks.entities.MeasureUnit;
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.MouvmentLine;
 import com.starstel.telcopro.stocks.entities.MouvmentType;
@@ -106,45 +105,5 @@ public class StockRestController
 	@RequestMapping(value="/poducts-color/{color}",method=RequestMethod.GET)
 	public List<Product> getProductByColor(@PathVariable String color) {
 		return appColorService.getProductByColor(color);
-	}
-	
-	@RequestMapping(value="/states",method=RequestMethod.GET)
-	public List<State> listStates() {
-		return productService.listStates();
-	}
-
-	@RequestMapping(value="/states",method=RequestMethod.POST)
-	public State saveState(@RequestBody State state) {
-		return productService.saveState(state);
-	}
-
-	@RequestMapping(value="/states/{id}",method=RequestMethod.DELETE)
-	public Boolean deleteState(@PathVariable Long id) {
-		return productService.deleteState(id);
-	}
-
-	@RequestMapping(value="/states/{id}",method=RequestMethod.GET)
-	public State getState(@PathVariable Long id) {
-		return productService.getState(id);
-	}
-
-	@RequestMapping(value="/measure-units",method=RequestMethod.GET)
-	public List<MeasureUnit> listMeasueUnits() {
-		return productService.listMeasueUnits();
-	}
-
-	@RequestMapping(value="/measure-units",method=RequestMethod.POST)
-	public MeasureUnit saveMeasueUnit(@RequestBody MeasureUnit measureUnit) {
-		return productService.saveMeasueUnit(measureUnit);
-	}
-
-	@RequestMapping(value="/measure-units/{id}",method=RequestMethod.DELETE)
-	public Boolean deleteMeasueUnit(@PathVariable Long id) {
-		return productService.deleteMeasueUnit(id);
-	}
-
-	@RequestMapping(value="/measure-units/{id}",method=RequestMethod.GET)
-	public MeasureUnit getMeasueUnit(@PathVariable Long id) {
-		return productService.getMeasueUnit(id);
 	}
 }

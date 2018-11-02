@@ -1,17 +1,12 @@
 package com.starstel.telcopro.stocks.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,11 +29,6 @@ public class Camera implements Serializable
 	private Long id;
 	private Double frontCamera;
 	private Double backCamera;
-	@OneToMany(cascade= CascadeType.ALL, mappedBy="camera")
-	@JsonIgnore
-	private Set<Portable> portableList = new HashSet<>();
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 37;
@@ -73,12 +63,6 @@ public class Camera implements Serializable
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	public Camera(Long id, Double frontCamera, Double backCamera) {
-		super();
-		this.id = id;
-		this.frontCamera = frontCamera;
-		this.backCamera = backCamera;
 	}
 	
 	
