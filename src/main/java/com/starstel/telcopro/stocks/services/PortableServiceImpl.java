@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.starstel.telcopro.stocks.entities.Camera;
@@ -55,9 +57,6 @@ public class PortableServiceImpl implements PortableService {
 	
 	@Override
 	public Portable save(Portable portable) {
-		
-		if(portable.getDateCreation() == null)
-			portable.setDateCreation(new Date());
 		
 		if(portable.getCamera() != null)
 			portable.setCamera(saveCamera(portable.getCamera()));
@@ -231,13 +230,13 @@ public class PortableServiceImpl implements PortableService {
 	}
 
 	@Override
-	public List<Portable> searchPortable(String motCle) {
-		return portableRepository.searchPortable("%"+motCle+"%");
+	public Page<Portable> searchPortable(String motCle, Pageable pageable) {
+		return portableRepository.searchPortable("%"+motCle+"%",pageable);
 	}
 
 	@Override
-	public List<Portable> searchPortable(Portable portable) {
+	public Page<Portable> searchPortable(Portable portable, Pageable pageable) {
 		
-		return portableRepository.searchPortable(portable);
+		return portableRepository.searchPortable(portable,pageable);
 	}
 }

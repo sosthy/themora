@@ -3,6 +3,8 @@ package com.starstel.telcopro.stocks.services;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+
 import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Entrepot;
 import com.starstel.telcopro.stocks.entities.Mouvment;
@@ -22,14 +24,14 @@ public interface EntrepotService
 	Emplacement saveEmplacement(Emplacement emplacement);
 	Boolean deleteEmplacement(Long id);
 	
-	Set<Mouvment> getAllMouvmentOfEntrepot(Long id);
+	List<Mouvment> getAllMouvmentOfEntrepot(Long id);
 	List<Product> getAllStockOfEntrepot(Long id);
 	Long getStockCountOfEntrepot(Long id);
 	Long getProductItemCountOfEntrepot(Long id);
 	Long getPortableItemCountOfEntrepot(Long id);
 	
-	Set<Emplacement> getAllEmplacementOfEntrepot(Long id);
-	Set<Product> getAllStockOfEmplacement(Long id);
+	List<Emplacement> getAllEmplacementOfEntrepot(Long id);
+	List<Product> getAllStockOfEmplacement(Long id);
 	Long getStockCountOfEmplacement(Long id);
 	Long getProductItemCountOfEmplacement(Long id);
 

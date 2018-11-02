@@ -39,16 +39,23 @@ public class ProductServiceImpl implements ProductService
 {
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
 	@Autowired
 	private StateRepository stateRepository;
+	
 	@Autowired
 	private EmplacementRepository emplacementRepository;
+	
 	@Autowired
 	private MeasureUnitRepository measureUnitRepository;
+	
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	
 	@Override
 	public List<Product> listProducts() {
 		return productRepository.findAll();
@@ -63,6 +70,41 @@ public class ProductServiceImpl implements ProductService
 		return true;
 	}
 	@Override
+	public List<State> listStates() {
+		return stateRepository.findAll();
+	}
+	@Override
+	public State saveState(State state) {
+		return stateRepository.save(state);
+	}
+	@Override
+	public Boolean deleteState(Long id) {
+		stateRepository.deleteById(id);
+		return true;
+	}
+	@Override
+	public State getState(Long id) {
+		return stateRepository.findById(id).get();
+	}
+	@Override
+	public List<MeasureUnit> listMeasueUnits() {
+		return measureUnitRepository.findAll();
+	}
+	@Override
+	public MeasureUnit saveMeasueUnit(MeasureUnit measureUnit) {
+		return measureUnitRepository.save(measureUnit);
+	}
+	@Override
+	public Boolean deleteMeasueUnit(Long id) {
+		measureUnitRepository.deleteById(id);
+		return true;
+	}
+	@Override
+	public MeasureUnit getMeasueUnit(Long id) {
+		return measureUnitRepository.findById(id).get();
+	}
+
+	@Override
 	public List<Mouvment> getAllMouvmentOfProduct(Long id) {
 		return productRepository.getAllMouvmentOfProduct(id);
 	}
@@ -74,219 +116,8 @@ public class ProductServiceImpl implements ProductService
 	public Product getProduct(Long id) {
 		return productRepository.findById(id).get();
 	}
-	
-
-	
-	
-	
-	/* @Override
-	public List<Product> listProducts() 
-	{
-		return productRepository.findAll();
-	}
-
 	@Override
-	public Product createProduct(Product product) 
-	{
-		return productRepository.save(product);
+	public List<Product> searchProducts(String keyWords) {
+		return productRepository.searchProducts(keyWords);
 	}
-
-	@Override
-	public Product editProduct(Product product) 
-	{
-		return null;
-	}
-
-	@Override
-	public Boolean deleteProduct(Long id) 
-	{
-		productRepository.deleteById(id);
-		return true;
-	}
-
-	@Override
-	public List<ProductCategory> listCategories() 
-	{
-		return categoryRepository.findAll();
-	}
-
-	@Override
-	public ProductCategory createCategory(ProductCategory category) 
-	{
-		return categoryRepository.save(category);
-	}
-
-	@Override
-	public ProductCategory editCategory(ProductCategory category)
-	{
-		return null;
-	}
-
-	@Override
-	public Boolean deleteCategory(Long id)
-	{
-		categoryRepository.deleteById(id);
-		return true;
-	}
-
-	@Override
-	public List<State> listState() 
-	{
-		return stateRepository.findAll();
-	}
-
-	@Override
-	public State createState(State state) 
-	{
-		return stateRepository.save(state);
-	}
-
-	@Override
-	public State editState(State state) 
-	{
-		return null;
-	}
-
-	@Override
-	public Boolean deleteState(Long id) 
-	{
-		stateRepository.deleteById(id);
-		return true;
-	}
-
-	@Override
-	public List<Emplacement> listEmplacements() 
-	{
-		return emplacementRepository.findAll();
-	}
-
-	@Override
-	public Emplacement createEmplacement(Emplacement emplacement) 
-	{
-		return emplacementRepository.save(emplacement);
-	}
-
-	@Override
-	public Emplacement editEmplacement(Emplacement emplacement) 
-	{
-		return null;
-	}
-
-	@Override
-	public Boolean deleteEmplacement(Long id) 
-	{
-		emplacementRepository.deleteById(id);
-		return true;
-	}
-
-	@Override
-	public List<MeasureUnit> listMeasureUnit()
-	{
-		return measureUnitRepository.findAll();
-	}
-
-	@Override
-	public MeasureUnit createMeasureUnit(MeasureUnit measureUnit) 
-	{
-		return measureUnitRepository.save(measureUnit);
-	}
-
-	@Override
-	public MeasureUnit editMeasureUnit(MeasureUnit measureUnit) 
-	{
-		return null;
-	}
-
-	@Override
-	public Boolean deleteMeasureUnit(Long id) 
-	{
-		measureUnitRepository.deleteById(id);
-		return true;
-	}
-
-	@Override
-	public List<MouvmentLine> listMouvmentLine()
-	{
-		return mouvmentLineRepository.findAll();
-	}
-
-	@Override
-	public MouvmentLine createMouvmentLine(MouvmentLine mouvmentLine)
-	{
-		return mouvmentLineRepository.save(mouvmentLine);
-	}
-
-	@Override
-	public MouvmentLine editMouvmentLine(MouvmentLine mouvmentLine) 
-	{
-		return null;
-	}
-
-	@Override
-	public Boolean deleteMouvmentLine(Long id) 
-	{
-		mouvmentLineRepository.deleteById(id);
-		return true;
-	}
-
-	@Override
-	public Set<Product> getProductsOfEmplacement(Long id) 
-	{
-		return emplacementRepository.getOne(id).getProducts();
-	}
-
-	@Override
-	public Set<Product> getProductsOfEntrepot(Long id) 
-	{
-		return entrepotRepository.getOne(id).getProducts();
-	}
-
-	@Override
-	public Set<Product> getProductsOfCategory(Long id) 
-	{
-		return categoryRepository.getOne(id).getProducts();
-	}
-
-	@Override
-	public Set<MouvmentLine> getMouvmentLinesOfProduct(Long id) 
-	{
-		return productRepository.getOne(id).getMouvmentLines();
-	}
-
-	@Override
-	public Set<MouvmentLine> getMouvmentLinesOfMouvment(Long id) 
-	{
-		return mouvmentRepository.getOne(id).getMouvmentLines();
-	}
-
-	@Override
-	public Set<Mouvment> getMouvmentsOfEntrepot(Long id) 
-	{
-		return entrepotRepository.getOne(id).getMouvments();
-	}
-
-	@Override
-	public Set<Mouvment> getMouvmentsOfEmployee(Long id)
-	{
-		return employeeRepository.getOne(id).getMouvments();
-	}
-
-	@Override
-	public Set<Mouvment> getMouvmentsOfMouvmentType(Long id) 
-	{
-		return mouvmentTypeRepository.getOne(id).getMouvments();
-	}
-
-	@Override
-	public Set<Mouvment> getMouvmentsOfRecipient(Long id) 
-	{
-		return recipientRepository.getOne(id).getMouvments();
-	}
-
-	@Override
-	public Set<Recipient> getRecipientsOfRecipientGroupe(Long id)
-	{
-		return recipientGroupeRepository.getOne(id).getRecipients();
-	}*/
-
 }

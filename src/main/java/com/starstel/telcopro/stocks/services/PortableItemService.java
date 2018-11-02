@@ -1,7 +1,10 @@
 package com.starstel.telcopro.stocks.services;
 
 
+import java.util.List;
 import java.util.Set;
+
+import org.springframework.data.domain.Page;
 
 import com.starstel.telcopro.stocks.entities.PortableItem;
 
@@ -11,6 +14,7 @@ public interface PortableItemService
 {
 	PortableItem save(PortableItem portableItem);
 	Boolean delete(Long id);
-	Set<PortableItem> getPortableItems();
+	List<PortableItem> getPortableItems();
 	PortableItem getPortableItem(Long id);
+	List<PortableItem> searchItems(String mc);
 }

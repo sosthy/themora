@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starstel.telcopro.stocks.entities.Emplacement;
@@ -66,7 +68,7 @@ public class EntrepotRestController {
 	}
 
 	@RequestMapping(value="/mouvments-of-entrepot/{id}",method=RequestMethod.GET)
-	public Set<Mouvment> getAllMouvmentOfEntrepot(@PathVariable Long id) {
+	public List<Mouvment> getAllMouvmentOfEntrepot(@PathVariable Long id) {
 		return entrepotService.getAllMouvmentOfEntrepot(id);
 	}
 
@@ -86,12 +88,13 @@ public class EntrepotRestController {
 	}
 
 	@RequestMapping(value="/emplacements-of-entrepot/{id}",method=RequestMethod.GET)
-	public Set<Emplacement> getAllEmplacementOfEntrepot(@PathVariable Long id) {
+	public List<Emplacement> getAllEmplacementOfEntrepot(@PathVariable Long id) {
 		return entrepotService.getAllEmplacementOfEntrepot(id);
 	}
 
 	@RequestMapping(value="/emplacements/products-of-emplacement/{id}",method=RequestMethod.GET)
-	public Set<Product> getAllStockOfEmplacement(@PathVariable Long id) {
+	public List<Product> getAllStockOfEmplacement(@PathVariable Long id,@RequestParam(name="page",defaultValue="0")int page, 
+			@RequestParam(name="size",defaultValue="12")int size) {
 		return entrepotService.getAllStockOfEmplacement(id);
 	}
 
@@ -105,14 +108,16 @@ public class EntrepotRestController {
 		return entrepotService.getProductItemCountOfEmplacement(id);
 	}
 
-	@RequestMapping(value="/is-spaced",method=RequestMethod.POST)
-	public Boolean isSpaced(@RequestBody Entrepot entrepot) {
+	@RequestMapping(value="/is-spaced/{id}",method=RequestMethod.GET)
+	public Boolean isSpaced(@PathVariable Long id) {
+		Entrepot entrepot=entrepotService.getEntrepot(id);
 		return entrepotService.isSpaced(entrepot);
 	}
 
 	@RequestMapping(value="/add-product-possible/{id}",method=RequestMethod.POST)
 	public Boolean isAddPossible(@PathVariable Long id, @RequestBody Product product) {
 		Entrepot entrepot=entrepotService.getEntrepot(id);
+		System.err.println(product);
 		return entrepotService.isAddPossible(entrepot, product);
 	}
 

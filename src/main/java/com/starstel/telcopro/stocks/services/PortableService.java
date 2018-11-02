@@ -3,6 +3,9 @@ package com.starstel.telcopro.stocks.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.starstel.telcopro.stocks.entities.Camera;
 import com.starstel.telcopro.stocks.entities.Cpu;
 import com.starstel.telcopro.stocks.entities.Emplacement;
@@ -26,6 +29,8 @@ public interface PortableService
 	List<Emplacement> getEmplacement(Long id);
 	List<Mouvment> getAllMouvment(Long id);
 	Portable getPortable(String numeroSerie);
+	List<Portable> searchPortable(String motCle);
+	List<Portable> searchPortable(Portable portable);
 	
 	// Camera
 	Camera saveCamera(Camera camera);
@@ -62,7 +67,5 @@ public interface PortableService
 	Boolean deleteCpu(Long id);
 	List<Cpu> getCpus();
 	Cpu getCpu(Long id);
-	List<Portable> searchPortable(String motCle);
-	List<Portable> searchPortable(Portable portable);
 
 }

@@ -1,8 +1,13 @@
 package com.starstel.telcopro.stocks.restcontrollers;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +21,11 @@ import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.Portable;
 import com.starstel.telcopro.stocks.entities.PortableCategory;
+import com.starstel.telcopro.stocks.entities.PortableItem;
 import com.starstel.telcopro.stocks.entities.PortableUnit;
 import com.starstel.telcopro.stocks.entities.SystemOS;
 import com.starstel.telcopro.stocks.services.AppColorService;
+import com.starstel.telcopro.stocks.services.PortableItemService;
 import com.starstel.telcopro.stocks.services.PortableService;
 
 @CrossOrigin("*")
@@ -30,6 +37,8 @@ public class PortableRestController {
 	private PortableService portableService;
 	@Autowired
 	private AppColorService appColorService;
+	@Autowired
+	private PortableItemService portableItemService;
 	
 
 	@RequestMapping(value="", method = RequestMethod.GET)
@@ -51,11 +60,6 @@ public class PortableRestController {
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public Portable getPortable(@PathVariable Long id) {
 		return portableService.getPortable(id);
-	}
-
-	@RequestMapping(value="/{numeroSerie}", method = RequestMethod.GET)
-	public Portable getPortable(@PathVariable String numeroSerie) {
-		return portableService.getPortable(numeroSerie);
 	}
 
 	@RequestMapping(value="/search", method = RequestMethod.GET)
@@ -166,5 +170,31 @@ public class PortableRestController {
 	@RequestMapping(value="/color/{color}", method = RequestMethod.GET)
 	public List<Portable> getPortableColor(@PathVariable String color) {
 		return appColorService.getPortableByColor(color);
+	}
+
+	@RequestMapping(value="/items", method = RequestMethod.GET)
+	public List<PortableItem> getPortableItems() {
+		return portableItemService.getPortableItems();
+	}
+
+	@RequestMapping(value="/items/{id}", method = RequestMethod.GET)
+	public PortableItem getPortableItem(@PathVariable Long id) {
+		return portableItemService.getPortableItem(id);
+	}
+
+	@RequestMapping(value="/items", method = RequestMethod.POST)
+	public PortableItem saveItem(PortableItem portableItem) {
+		return portableItemService.save(portableItem);
+	}
+
+	@RequestMapping(value="/items/{id}", method = RequestMethod.DELETE)
+	public Boolean deleteItem(@PathVariable Long id) {
+		portableItemService.delete(id);
+		return true;
+	}
+
+	@RequestMapping(value="/search-items", method = RequestMethod.GET)
+	public List<PortableItem> getPortableItems(@RequestParam(name="mc",defaultValue="") String mc) {
+		return portableItemService.searchItems(mc);
 	}
 }

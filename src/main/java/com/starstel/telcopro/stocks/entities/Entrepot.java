@@ -90,6 +90,11 @@ public class Entrepot implements Serializable
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "Entrepot [id=" + id + ", name=" + name + ", nbOfProduct=" + nbOfProduct + ", priceTotal=" + priceTotal
+				+ ", volume=" + volume + ", volumeSecurity=" + volumeSecurity + "]";
+	}
 	
 	
 }

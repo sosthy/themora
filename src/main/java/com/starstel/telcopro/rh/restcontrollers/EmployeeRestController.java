@@ -41,19 +41,19 @@ public class EmployeeRestController
 		return employeeService.listMouvmentOfEmployee(id);
 	}
 	
-	@RequestMapping(value="/create-employee", method = RequestMethod.POST)
+	@RequestMapping(value="/employees", method = RequestMethod.POST)
 	public Employee createEmployee(@RequestBody Employee employee)
 	{
 		return employeeService.createEmployee(employee);
 	}
 	
-	@RequestMapping(value="/edit-employee", method = RequestMethod.PUT)
+	@RequestMapping(value="/employees", method = RequestMethod.PUT)
 	public Employee editEmployee(@RequestBody Employee employee)
 	{
 		return employeeService.editEmployee(employee);
 	}
 	
-	@RequestMapping(value="/delete-employee/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value="/employees/{id}", method = RequestMethod.DELETE)
 	public Boolean deleteEmployee(@PathVariable Long id)
 	{
 		return employeeService.deleteEmployee(id);

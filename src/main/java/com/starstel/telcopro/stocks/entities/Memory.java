@@ -1,12 +1,17 @@
 package com.starstel.telcopro.stocks.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,4 +35,7 @@ public class Memory implements Serializable
 	private Double ram;
 	private Double rom;
 	private String brand;
+	@OneToMany(cascade= CascadeType.ALL, mappedBy="memory")
+	@JsonIgnore
+	private Set<Portable> portableList = new HashSet<>();
 }

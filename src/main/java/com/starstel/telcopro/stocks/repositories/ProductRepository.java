@@ -15,5 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Long>
 	List<Mouvment> getAllMouvmentOfProduct(@Param("x") Long id);
 	@Query("select m from Mouvment m")
 	List<Mouvment> getAllMouvmentOfEmployee(Long id);
+
+	@Query("select p from Product p where lower(p.appColor.name) like lower(:x) or lower(p.designation) like lower(:x)")
+	List<Product> searchProducts(@Param("x") String keyWords);
 	
 }

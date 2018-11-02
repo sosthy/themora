@@ -3,6 +3,7 @@ package com.starstel.telcopro.stocks.entities;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class AppColor implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "app_id")
 	private Long id;
 	private String name;
-	@OneToMany
+	@OneToMany(cascade= CascadeType.ALL, mappedBy="appColor")
 	@JsonIgnore
 	private Set<Product> productsList;
 	public AppColor(String name) {
