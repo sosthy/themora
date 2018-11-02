@@ -230,13 +230,14 @@ public class PortableServiceImpl implements PortableService {
 	}
 
 	@Override
-	public Page<Portable> searchPortable(String motCle, Pageable pageable) {
-		return portableRepository.searchPortable("%"+motCle+"%",pageable);
+	public List<Portable> searchPortable(String motCle) {
+		return portableRepository.searchPortable("%"+motCle+"%");
 	}
 
 	@Override
-	public Page<Portable> searchPortable(Portable portable, Pageable pageable) {
+	public List<Portable> searchPortable(Portable portable) {
 		
-		return portableRepository.searchPortable(portable,pageable);
+		return portableRepository.searchPortable(portable);
 	}
+
 }
