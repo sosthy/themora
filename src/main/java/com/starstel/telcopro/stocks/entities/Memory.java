@@ -38,4 +38,13 @@ public class Memory implements Serializable
 	@OneToMany(cascade= CascadeType.ALL, mappedBy="memory")
 	@JsonIgnore
 	private Set<Portable> portableList = new HashSet<>();
+	
+	public Memory(Double ram, Double rom, String brand) {
+		super();
+		this.ram = ram;
+		this.rom = rom;
+		this.brand = brand;
+	}
+	
+	
 }
