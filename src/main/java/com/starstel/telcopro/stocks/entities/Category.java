@@ -59,5 +59,10 @@ public class Category implements Serializable
 			return false;
 		return true;
 	}
+	public Category(String name, String notes) {
+		super();
+		this.name = name;
+		this.notes = notes;
+	}
 	
 }

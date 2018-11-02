@@ -130,21 +130,21 @@ public class StockRestController
 
 	@RequestMapping(value="/measure-units",method=RequestMethod.GET)
 	public List<MeasureUnit> listMeasueUnits() {
-		return productService.listMeasueUnits();
+		return productService.listMeasureUnits();
 	}
 
 	@RequestMapping(value="/measure-units",method=RequestMethod.POST)
 	public MeasureUnit saveMeasueUnit(@RequestBody MeasureUnit measureUnit) {
-		return productService.saveMeasueUnit(measureUnit);
+		return productService.saveMeasureUnit(measureUnit);
 	}
 
 	@RequestMapping(value="/measure-units/{id}",method=RequestMethod.DELETE)
 	public Boolean deleteMeasueUnit(@PathVariable Long id) {
-		return productService.deleteMeasueUnit(id);
+		return productService.deleteMeasureUnit(id);
 	}
 
 	@RequestMapping(value="/measure-units/{id}",method=RequestMethod.GET)
 	public MeasureUnit getMeasueUnit(@PathVariable Long id) {
-		return productService.getMeasueUnit(id);
+		return productService.getMeasureUnit(id);
 	}
 }
