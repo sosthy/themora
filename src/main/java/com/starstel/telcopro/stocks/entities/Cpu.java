@@ -72,5 +72,10 @@ public class Cpu implements Serializable
 			return false;
 		return true;
 	}
+	public Cpu(String brand, Double frequency) {
+		super();
+		this.brand = brand;
+		this.frequency = frequency;
+	}
 	
 }

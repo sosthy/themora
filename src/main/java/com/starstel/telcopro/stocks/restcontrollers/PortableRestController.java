@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.starstel.telcopro.stocks.entities.Camera;
+import com.starstel.telcopro.stocks.entities.Cpu;
 import com.starstel.telcopro.stocks.entities.Emplacement;
+import com.starstel.telcopro.stocks.entities.Memory;
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.Portable;
 import com.starstel.telcopro.stocks.entities.PortableCategory;
@@ -196,5 +198,50 @@ public class PortableRestController {
 	@RequestMapping(value="/search-items", method = RequestMethod.GET)
 	public List<PortableItem> getPortableItems(@RequestParam(name="mc",defaultValue="") String mc) {
 		return portableItemService.searchItems(mc);
+	}
+
+	@RequestMapping(value="/num/{numeroSerie}", method = RequestMethod.GET)
+	public Portable getPortable(@PathVariable String numeroSerie) {
+		return portableService.getPortable(numeroSerie);
+	}
+
+	@RequestMapping(value="/memories", method = RequestMethod.POST)
+	public Memory saveMemory(@RequestBody Memory memory) {
+		return portableService.saveMemory(memory);
+	}
+
+	@RequestMapping(value="/memories/{id}", method = RequestMethod.DELETE)
+	public Boolean deleteMemory(@PathVariable Long id) {
+		return portableService.deleteMemory(id);
+	}
+
+	@RequestMapping(value="/memories", method = RequestMethod.GET)
+	public List<Memory> getMemories() {
+		return portableService.getMemories();
+	}
+
+	@RequestMapping(value="/memories/{id}", method = RequestMethod.GET)
+	public Memory getMemory(@PathVariable Long id) {
+		return portableService.getMemory(id);
+	}
+
+	@RequestMapping(value="/cpus", method = RequestMethod.POST)
+	public Cpu saveCpu(@RequestBody Cpu cpu) {
+		return portableService.saveCpu(cpu);
+	}
+
+	@RequestMapping(value="/cpus/{id}", method = RequestMethod.DELETE)
+	public Boolean deleteCpu(@PathVariable Long id) {
+		return portableService.deleteCpu(id);
+	}
+
+	@RequestMapping(value="/cpus", method = RequestMethod.GET)
+	public List<Cpu> getCpus() {
+		return portableService.getCpus();
+	}
+
+	@RequestMapping(value="/cpus/{id}", method = RequestMethod.GET)
+	public Cpu getCpu(@PathVariable Long id) {
+		return portableService.getCpu(id);
 	}
 }

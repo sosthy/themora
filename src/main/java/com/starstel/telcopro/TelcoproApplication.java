@@ -19,12 +19,14 @@ import com.starstel.telcopro.rh.entities.Employee;
 import com.starstel.telcopro.rh.services.EmployeeService;
 import com.starstel.telcopro.stocks.entities.AppColor;
 import com.starstel.telcopro.stocks.entities.Camera;
+import com.starstel.telcopro.stocks.entities.Cpu;
 import com.starstel.telcopro.stocks.entities.Emplacement;
 import com.starstel.telcopro.stocks.entities.Entrepot;
 import com.starstel.telcopro.stocks.entities.Mouvment;
 import com.starstel.telcopro.stocks.entities.MouvmentLine;
 import com.starstel.telcopro.stocks.entities.MouvmentType;
 import com.starstel.telcopro.stocks.entities.Portable;
+import com.starstel.telcopro.stocks.entities.PortableItem;
 import com.starstel.telcopro.stocks.entities.Recipient;
 import com.starstel.telcopro.stocks.entities.RecipientGroupe;
 import com.starstel.telcopro.stocks.services.AppColorService;
@@ -186,6 +188,10 @@ public class TelcoproApplication extends SpringBootServletInitializer implements
 		Camera camera = new Camera(null, 8.0, 13.0);
 		Camera camera2 = new Camera(null, 10.0, 13.0);
 		Camera camera3 = new Camera(null, 10.0, 16.0);
+
+		Cpu cpu = new Cpu("GHZ", 13.0);
+		Cpu cpu2 = new Cpu("MHZ", 13.0);
+		Cpu cpu3 = new Cpu("KHZ", 16.0);
 
 		AppColor redColor = new AppColor("RED");
 		AppColor blueColor = new AppColor("BLUE");
