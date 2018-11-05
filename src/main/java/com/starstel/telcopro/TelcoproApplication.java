@@ -219,7 +219,7 @@ public class TelcoproApplication extends SpringBootServletInitializer implements
 		AppColor redColor = new AppColor("RED");
 		AppColor blueColor = new AppColor("BLUE");
 		AppColor blackColor = new AppColor("BLACK");
-		AppColor whiteColor = new AppColor("WHITE");
+		AppColor whiteColor = new AppColor("WHITE"); 
 
 		PortableCategory portableCategory = new PortableCategory(null,"SMART FAMILLY","Un pack complet pour la famille");
 		PortableCategory portableCategory2 = new PortableCategory(null,"XTouch Robot Family","Un pack complet pour les futuristes");
