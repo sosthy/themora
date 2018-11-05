@@ -108,6 +108,11 @@ public class MouvmentServiceImpl implements MouvmentService
 
 	@Override
 	public MouvmentLine saveMouvmentLine(MouvmentLine mouvmentLine) {
+		/*
+		mouvmentLine.getMouvment().setQuantity(mouvmentLine.getMouvment().getQuantity() + mouvmentLine.getQuantity());
+		mouvmentLine.getMouvment().setPriceTotal(mouvmentLine.getMouvment().getPriceTotal() + mouvmentLine.getPriceTotal());
+		mouvmentRepository.save(mouvmentLine.getMouvment());*/
+		
 		return mouvmentLineRepository.save(mouvmentLine);
 	}
 

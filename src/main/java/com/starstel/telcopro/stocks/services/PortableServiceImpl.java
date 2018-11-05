@@ -248,5 +248,4 @@ public class PortableServiceImpl implements PortableService {
 		
 		return portableRepository.searchPortable(portable);
 	}
-
 }
