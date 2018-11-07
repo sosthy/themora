@@ -1,10 +1,6 @@
 package com.starstel.telcopro.accounts.services;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.starstel.telcopro.accounts.entities.AppMenu;
 import com.starstel.telcopro.accounts.entities.AppRole;
 import com.starstel.telcopro.accounts.entities.AppUser;
+import com.starstel.telcopro.accounts.entities.AppUserModel;
 import com.starstel.telcopro.accounts.repositories.AppMenuRepository;
 import com.starstel.telcopro.accounts.repositories.AppRoleRepository;
 import com.starstel.telcopro.accounts.repositories.AppUserRepository;
@@ -69,13 +66,7 @@ public class AccountServiceImpl implements AccountService
 	}
 	
 	@Override
-	public AppRole createRole(AppRole role) 
-	{
-		return appRoleRepository.save(role);
-	}
-	
-	@Override
-	public AppRole editRole(AppRole role) 
+	public AppRole saveRole(AppRole role) 
 	{
 		return appRoleRepository.save(role);
 	}
@@ -83,7 +74,11 @@ public class AccountServiceImpl implements AccountService
 	@Override
 	public boolean deleteRole(Long id) 
 	{
-		appRoleRepository.deleteById(id);
+		AppRole role = appRoleRepository.findById(id).get();
+		role.getUsers().forEach(user -> {
+			user.getRoles().remove(role);
+		});
+		appRoleRepository.delete(role);
 		return true;
 	}
 	
@@ -106,8 +101,17 @@ public class AccountServiceImpl implements AccountService
 	}
 
 	@Override
-	public AppUser saveUser(AppUser user) 
+	public AppUser saveUser(AppUserModel model) 
 	{
+		AppUser user = new AppUser();
+		user.setId(model.getId());
+		user.setUsername(model.getUsername());
+		user.setPassword(passwordEncoder.encode(model.getPassword()));
+		user.setEmail(model.getEmail());
+		user.setLockStatus(model.getLockStatus());
+		user.setRoles(model.getRoles());
+		user.setEmployee(model.getEmployee());
+		
 		String hashPW = passwordEncoder.encode(user.getPassword());
 		user.setPassword(hashPW);
 		return appUserRepository.save(user);
@@ -167,6 +171,19 @@ public class AccountServiceImpl implements AccountService
 	@Override
 	public AppMenu getAppMenu(Long id) {
 		return appMenuRepository.findById(id).get();
+	}
+
+	@Override
+	public List<AppMenu> getMenusOfRole(Long id) 
+	{
+		AppRole role = appRoleRepository.findById(id).get();
+		
+		if(role != null) 
+		{
+			return role.getMenus();
+		}
+		
+		return null;
 	}
 
 }

@@ -43,7 +43,6 @@ public class Employee extends Person implements Serializable
     private Set<Mouvment> mouvments;
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "USER_ID")
-    @JsonIgnore
     private AppUser appUser;
     
     
