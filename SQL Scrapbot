@@ -3,3 +3,6 @@
 	
 	AppMenu menuProduct= new AppMenu("Inventory", "fa-building-o", "Manage stocks");
 		AppMenu menuRh= new AppMenu("Resources", "fa-tachometer", "Manage resources");
+		
+		
+	
